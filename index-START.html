@@ -182,6 +182,42 @@
     </li>
   </ul>
 <script>
+  // array.from() is needed because a NodeLIst is not a true array...only has a forEach
+  const video_list = Array.from(document.querySelectorAll('[data-time]'));
+ 
+  const mins_seconds = video_list.map(item => item.dataset.time);
+
+  const split_mins_seconds = mins_seconds.map(time => {
+    // destructuring the array
+    const [min, sec] = time.split(':').map(parseFloat);
+    return (min * 60 + sec);
+  });
+
+  const sum_seconds = split_mins_seconds.reduce(function(sum,item){
+    return sum + item;
+  },0);
+
+  let seconds_remaining = sum_seconds;
+
+  const hours = Math.floor(sum_seconds/3600);
+  seconds_remaining = sum_seconds%3600;
+
+  const minutes = Math.floor(seconds_remaining / 60); 
+  seconds_remaining = seconds_remaining % 60;
+
+  const seconds = seconds_remaining; 
+
+ console.log(hours,minutes,seconds);
+
+
+  
+ 
+
+
+ 
+  
+
+
 </script>
 </body>
 </html>
